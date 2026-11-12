@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 // Horizontal bars: one series, direct value labels, hover/focus highlight.
-export default function HBarChart({ data, label, value, unit = '', ariaLabel }) {
+export default function HBarChart({ data, label, value, unit = '', format, ariaLabel }) {
   const [active, setActive] = useState(null)
   const max = Math.max(...data.map(value), 1)
   return (
@@ -22,7 +22,7 @@ export default function HBarChart({ data, label, value, unit = '', ariaLabel }) 
             <span className="hbar-track">
               <span className="hbar-fill" style={{ width: `${(v / max) * 100}%` }} />
             </span>
-            <span className="hbar-value">{Math.round(v)}{unit}</span>
+            <span className="hbar-value">{format ? format(v) : `${Math.round(v)}${unit}`}</span>
           </div>
         )
       })}

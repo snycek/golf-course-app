@@ -6,6 +6,7 @@ import { getDoc, setDoc, deleteDoc, listDocs, storageMode } from './lib/store.js
 import { requireUser, requireAdmin, authMode, adminEmails } from './lib/auth.js'
 import { PLANS, hoursSummary, publicMember } from './lib/membership.js'
 import { memberStats } from './lib/stats.js'
+import { parseEntry, EXPENSE_CATEGORIES, INCOME_CATEGORIES, METHODS } from './lib/ledger.js'
 
 try {
   const { config } = await import('dotenv')
@@ -216,6 +217,35 @@ app.get('/api/admin/waivers', requireAdmin, wrap(async (req, res) => {
     )
   }
   res.json({ waivers: rows.slice(0, 200), storage: await storageMode() })
+}))
+
+// ---------- Bookkeeping ----------
+
+app.get('/api/admin/ledger', requireAdmin, wrap(async (req, res) => {
+  const from = isDate(req.query.from) ? req.query.from : '0000-00-00'
+  const to = isDate(req.query.to) ? req.query.to : '9999-12-31'
+  const entries = (await listDocs('ledger'))
+    .filter((e) => e.date >= from && e.date <= to)
+    .sort((a, b) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt))
+  res.json({
+    entries,
+    categories: { expense: EXPENSE_CATEGORIES, income: INCOME_CATEGORIES },
+    methods: METHODS,
+    storage: await storageMode(),
+  })
+}))
+
+app.post('/api/admin/ledger', requireAdmin, wrap(async (req, res) => {
+  const { entry, error } = parseEntry(req.body)
+  if (error) return res.status(400).json({ error })
+  const id = crypto.randomUUID()
+  const saved = await setDoc('ledger', id, { ...entry, createdAt: new Date().toISOString(), createdBy: req.user.email })
+  res.status(201).json({ entry: saved })
+}))
+
+app.delete('/api/admin/ledger/:id', requireAdmin, wrap(async (req, res) => {
+  await deleteDoc('ledger', req.params.id)
+  res.json({ ok: true })
 }))
 
 app.use('/api', (_req, res) => res.status(404).json({ error: 'Not found' }))

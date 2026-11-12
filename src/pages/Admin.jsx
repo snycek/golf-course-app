@@ -3,6 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth, useApi } from '../lib/auth.jsx'
 import { fmtDate, fmtHours, todayYmd } from '../lib/format.js'
 import SideNav from '../components/SideNav.jsx'
+import Books from './Books.jsx'
 
 const blankMember = { email: '', name: '', phone: '', plan: 'silver', status: 'active', billingDay: new Date().getDate(), notes: '' }
 
@@ -231,14 +232,15 @@ export default function Admin() {
         header={<div className="side-head"><strong>Admin</strong><span>{user.email}</span></div>}
         items={[
           { key: 'members', label: 'Members', icon: 'members', onClick: () => setTab('members'), active: tab === 'members' },
+          { key: 'books', label: 'Books', icon: 'books', onClick: () => setTab('books'), active: tab === 'books' },
           { key: 'waivers', label: 'Waivers', icon: 'waivers', onClick: () => setTab('waivers'), active: tab === 'waivers' },
           { key: 'portal', label: 'My portal', icon: 'overview', to: '/portal', end: true },
         ]}
       />
       <div className="shell-main">
         <div className="page-enter" key={tab}>
-          <header className="portal-head"><h1>{tab === 'members' ? 'Members' : 'Waivers'}</h1></header>
-          {me.data && (tab === 'members' ? <Members /> : <Waivers />)}
+          <header className="portal-head"><h1>{{ members: 'Members', books: 'Books', waivers: 'Waivers' }[tab]}</h1></header>
+          {me.data && (tab === 'members' ? <Members /> : tab === 'books' ? <Books /> : <Waivers />)}
         </div>
       </div>
     </div>
