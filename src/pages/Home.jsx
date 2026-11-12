@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom'
 import Steps from '../components/Steps.jsx'
-import {
-  business, booking, hero, highlights, howItWorks, why, options, tech, giftCards, faqs,
-} from '../content.js'
+import { business, booking, hero, highlights, howItWorks, options, tech, giftCards, faqs } from '../content.js'
 
 export default function Home() {
   const { address } = business
@@ -11,17 +9,12 @@ export default function Home() {
       <section className="hero">
         <div className="container hero-inner">
           <p className="eyebrow">{hero.eyebrow}</p>
-          <h1>
-            {hero.title} <span className="accent">{hero.titleAccent}</span>
-          </h1>
+          <h1>{hero.title} <em>{hero.titleAccent}</em></h1>
           <p className="lead">{hero.lead}</p>
           <div className="hero-cta">
             <Link to="/book" className="btn btn-primary">Book a tee time</Link>
-            <a href="#how-it-works" className="btn btn-ghost">See how it works</a>
+            <Link to="/memberships" className="btn btn-ghost">Memberships</Link>
           </div>
-          <p className="hero-note">{hero.priceNote}</p>
-        </div>
-        <div className="container">
           <ul className="highlights">
             {highlights.map((h) => <li key={h}>{h}</li>)}
           </ul>
@@ -30,41 +23,27 @@ export default function Home() {
 
       <section className="section" id="how-it-works">
         <div className="container">
-          <p className="eyebrow">How it works</p>
-          <h2>{howItWorks.title}</h2>
-          <p className="lead muted">{howItWorks.lead}</p>
+          <div className="section-intro">
+            <h2>{howItWorks.title}</h2>
+            <p className="muted">{howItWorks.lead}</p>
+          </div>
           <Steps steps={howItWorks.steps} />
-          <Link to="/book" className="btn btn-primary">Reserve your session</Link>
         </div>
       </section>
 
       <section className="section section-alt">
-        <div className="container split">
-          <div>
-            <h2>{why.title}</h2>
-            <p className="lead muted">{why.body}</p>
-            <Link to="/book" className="btn btn-primary">Book your private studio</Link>
-          </div>
-          <ul className="checks checks-lg card">
-            {why.points.map((p) => <li key={p}>{p}</li>)}
-          </ul>
-        </div>
-      </section>
-
-      <section className="section">
         <div className="container">
-          <h2>{options.title}</h2>
-          <p className="lead muted">{options.lead}</p>
+          <div className="section-intro"><h2>{options.title}</h2></div>
           <div className="card-grid">
             {options.items.map((o) => (
-              <article key={o.key} className="card">
+              <article key={o.key} className="card option">
+                <span className="option-price">{o.price}</span>
                 <h3>{o.title}</h3>
                 <p>{o.body}</p>
-                {o.price && <p className="price-tag">{o.price}</p>}
                 {o.to ? (
-                  <Link to={o.to} className="btn btn-outline btn-block">{o.cta}</Link>
+                  <Link to={o.to} className="link-arrow">{o.cta} →</Link>
                 ) : (
-                  <a href={o.href} className="btn btn-outline btn-block">{o.cta}</a>
+                  <a href={o.href} className="link-arrow">{o.cta} →</a>
                 )}
               </article>
             ))}
@@ -74,10 +53,8 @@ export default function Home() {
 
       <section className="section section-dark">
         <div className="container">
-          <p className="eyebrow">Technology</p>
-          <h2>{tech.title}</h2>
-          <p className="lead">{tech.lead}</p>
-          <div className="card-grid card-grid-4">
+          <div className="section-intro"><h2>{tech.title}</h2></div>
+          <div className="tech-grid">
             {tech.items.map((t) => (
               <article key={t.title} className="tech-item">
                 <h3>{t.title}</h3>
@@ -90,23 +67,19 @@ export default function Home() {
 
       <section className="section" id="gift-cards">
         <div className="container">
-          <div className="gift card">
+          <div className="band">
             <div>
-              <p className="eyebrow">Gift cards</p>
               <h2>{giftCards.title}</h2>
               <p className="muted">{giftCards.body}</p>
             </div>
-            <a href={booking.giftCardUrl} target="_blank" rel="noreferrer" className="btn btn-primary">
-              Buy a gift card ↗
-            </a>
+            <a href={booking.giftCardUrl} target="_blank" rel="noreferrer" className="btn btn-primary">Buy a gift card</a>
           </div>
         </div>
       </section>
 
       <section className="section section-alt" id="faqs">
         <div className="container narrow">
-          <p className="eyebrow">FAQs</p>
-          <h2>Good to know</h2>
+          <div className="section-intro"><h2>FAQ</h2></div>
           {faqs.map((f) => (
             <details key={f.q} className="faq">
               <summary>{f.q}</summary>
@@ -117,21 +90,21 @@ export default function Home() {
       </section>
 
       <section className="section" id="contact">
-        <div className="container card-grid">
-          <article className="card">
-            <p className="eyebrow">Find us</p>
-            <h3>{business.name}</h3>
-            <p>{address.line1}<br />{address.city}, {address.state} {address.zip}</p>
-            <p><strong>{business.hoursNote}</strong></p>
-            <a className="link-arrow" href={business.mapUrl} target="_blank" rel="noreferrer">Get directions →</a>
-          </article>
-          <article className="card">
-            <p className="eyebrow">Contact us</p>
-            <h3>Questions or events?</h3>
-            <p>Phone: <a href={`tel:${business.phone}`}>{business.phone}</a></p>
-            <p>Email: <a href={`mailto:${business.email}`}>{business.email}</a></p>
+        <div className="container contact-grid">
+          <div>
+            <h2>Visit</h2>
+            <p className="lead-sm">{address.line1}<br />{address.city}, {address.state} {address.zip}</p>
+            <p className="muted">{business.hoursNote}</p>
+            <a className="link-arrow" href={business.mapUrl} target="_blank" rel="noreferrer">Directions →</a>
+          </div>
+          <div>
+            <h2>Contact</h2>
+            <p className="lead-sm">
+              <a href={`tel:${business.phone}`}>{business.phone}</a><br />
+              <a href={`mailto:${business.email}`}>{business.email}</a>
+            </p>
             <a className="link-arrow" href={booking.eventsMailto}>Plan a private event →</a>
-          </article>
+          </div>
         </div>
       </section>
     </>

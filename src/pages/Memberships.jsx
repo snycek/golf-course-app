@@ -3,74 +3,58 @@ import PageHeader from '../components/PageHeader.jsx'
 import Steps from '../components/Steps.jsx'
 import { memberships as m } from '../content.js'
 
+const STEPS = [
+  { title: 'Join', body: 'Choose Silver or Gold.' },
+  { title: 'Book', body: 'Sign in and apply your hours.' },
+  { title: 'Play', body: 'Codes arrive by email.' },
+]
+
 export default function Memberships() {
   return (
     <>
-      <PageHeader eyebrow={m.eyebrow} title={m.title}>{m.lead}</PageHeader>
+      <PageHeader eyebrow="Memberships" title="Make golf a habit.">
+        Monthly studio hours, member pricing, room for your group.
+      </PageHeader>
 
       <section className="section">
         <div className="container">
-          <div className="card-grid">
-            {m.benefits.map((b) => (
-              <article key={b.title} className="card">
-                <h3>{b.title}</h3>
-                <p>{b.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section section-alt" id="membership-plans">
-        <div className="container">
-          <p className="eyebrow">Membership plans</p>
-          <h2>{m.plansTitle}</h2>
-          <p className="lead muted">{m.plansLead}</p>
           <div className="plans">
             {m.tiers.map((t) => (
-              <article key={t.name} className={`card plan ${t.badge ? 'plan-featured' : ''}`}>
+              <article key={t.name} className={`plan ${t.badge ? 'plan-featured' : ''}`}>
                 {t.badge && <span className="badge">{t.badge}</span>}
-                <h3>{t.name} membership</h3>
-                <p className="price">{t.price}<span>/month</span></p>
+                <h3>{t.name}</h3>
+                <p className="price">{t.price}<span>/mo</span></p>
                 <ul className="checks">
                   {t.includes.map((i) => <li key={i}>{i}</li>)}
                 </ul>
-                <a href={m.signupUrl} target="_blank" rel="noreferrer" className="btn btn-primary btn-block">
-                  Choose {t.name} ↗
+                <a href={m.signupUrl} target="_blank" rel="noreferrer" className={`btn btn-block ${t.badge ? 'btn-primary' : 'btn-outline'}`}>
+                  Choose {t.name}
                 </a>
               </article>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <div className="gift card">
-            <div>
-              <h2>{m.notReady.title}</h2>
-              <p className="muted">{m.notReady.body}</p>
-            </div>
-            <Link to="/book" className="btn btn-primary">Book an hourly session</Link>
-          </div>
+          <p className="center muted plans-alt">
+            Not ready? <Link to="/book">Book an hour</Link> — from $40, no membership needed.
+          </p>
         </div>
       </section>
 
       <section className="section section-alt">
         <div className="container">
-          <p className="eyebrow">How memberships work</p>
-          <h2>Memberships made simple</h2>
-          <Steps steps={m.steps} />
+          <div className="section-intro"><h2>How it works</h2></div>
+          <Steps steps={STEPS} />
         </div>
       </section>
 
       <section className="section">
         <div className="container narrow">
-          <p className="eyebrow">Membership guidelines</p>
-          <h2>A few things to know</h2>
-          <ul className="checks checks-lg">
-            {m.guidelines.map((g) => <li key={g}>{g}</li>)}
-          </ul>
+          <details className="faq">
+            <summary>Membership guidelines</summary>
+            <ul className="checks">
+              {m.guidelines.map((g) => <li key={g}>{g}</li>)}
+            </ul>
+          </details>
+          <p className="center"><Link to="/login" className="link-arrow">Already a member? Sign in →</Link></p>
         </div>
       </section>
     </>

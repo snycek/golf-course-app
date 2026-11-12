@@ -27,69 +27,35 @@ export const booking = {
 }
 
 export const hero = {
-  eyebrow: 'Private indoor golf in Southgate',
-  title: 'Your own private TrackMan studio.',
-  titleAccent: 'Available 24/7.',
-  lead:
-    'Practice, play world-famous courses, or enjoy a round with friends—all inside a private studio reserved exclusively for your group.',
-  priceNote: 'As low as $40 per hour • Entire studio • Up to six golfers',
+  eyebrow: 'Southgate, Michigan',
+  title: 'Your private',
+  titleAccent: 'TrackMan studio.',
+  lead: 'The whole studio, just your group. Open around the clock.',
+  priceNote: 'From $40/hr · up to 6 golfers',
 }
 
 export const highlights = ['Private studio', 'TrackMan iO', 'Open 24/7', 'Up to 6 golfers']
 
 export const howItWorks = {
   title: 'Golf on your schedule',
-  lead: 'No front desk, no waiting, and no sharing the studio with strangers.',
+  lead: 'No front desk. No waiting. No strangers.',
   steps: [
-    { title: 'Book online', body: 'Select your date and time through our online booking system.' },
-    {
-      title: 'Receive your access codes',
-      body: 'Your confirmation email will include the codes needed to enter the facility and access the simulator.',
-    },
-    {
-      title: 'Arrive and play',
-      body: 'Enter the private studio, start your TrackMan session, and enjoy the space for your reserved time.',
-    },
-  ],
-}
-
-export const why = {
-  title: 'Your game. Your time. Your space.',
-  body:
-    'Teein’ It Up gives you the freedom to practice, play, and compete without crowds, waiting, or shared bays. Every reservation provides a comfortable private environment for serious practice, casual rounds, and time with friends or family.',
-  points: [
-    'Private studio reservations',
-    'Play alone or bring up to five guests',
-    'Available around the clock',
-    'Comfortable, distraction-free environment',
-    'Automated booking and facility access',
+    { title: 'Book', body: 'Pick a time online.' },
+    { title: 'Get your codes', body: 'Door and bay PINs arrive by email.' },
+    { title: 'Play', body: 'Walk in and tee off.' },
   ],
 }
 
 export const options = {
-  title: 'Choose how you play',
-  lead:
-    'Whether you’re stopping in for a round, playing regularly, or planning a private gathering, Teein’ It Up gives you a space of your own.',
+  title: 'Ways to play',
   items: [
-    {
-      key: 'hourly',
-      title: 'Hourly bookings',
-      body: 'Reserve the entire private studio by the hour. Practice alone or bring up to five additional golfers.',
-      price: 'As low as $40/hr',
-      cta: 'View hourly bookings',
-      to: '/book',
-    },
-    {
-      key: 'memberships',
-      title: 'Memberships',
-      body: 'Play more often with included monthly hours, discounted additional bookings, and the freedom to bring guests.',
-      cta: 'View memberships',
-      to: '/memberships',
-    },
+    { key: 'hourly', title: 'Hourly', body: 'The whole studio for up to six.', price: 'From $40/hr', cta: 'Book', to: '/book' },
+    { key: 'memberships', title: 'Membership', body: 'Monthly hours and member pricing.', price: 'From $109/mo', cta: 'View plans', to: '/memberships' },
     {
       key: 'events',
       title: 'Private events',
-      body: 'Plan a birthday, team outing, client event, golf night, or private gathering inside your own TrackMan studio.',
+      body: 'Birthdays, team outings, golf nights.',
+      price: 'Inquire',
       cta: 'Plan an event',
       href: 'mailto:teeinitupsimgolf@gmail.com?subject=Inquiry%20about%20a%20Private%20Event',
     },
@@ -98,20 +64,17 @@ export const options = {
 
 export const tech = {
   title: 'Powered by TrackMan iO',
-  lead:
-    'Experience advanced indoor golf technology designed to deliver accurate data, realistic gameplay, and immediate feedback.',
   items: [
-    { title: 'Tour-level accuracy', body: 'Capture precise ball and club data on every shot.' },
-    { title: 'World-class courses', body: 'Play iconic courses from around the world without leaving Southgate.' },
-    { title: 'Realistic ball flight', body: 'See accurate shot shape, carry, bounce, and roll.' },
-    { title: 'Immediate feedback', body: 'Use detailed performance information to understand and improve your game.' },
+    { title: 'Tour-level accuracy', body: 'Ball and club data on every shot.' },
+    { title: 'World-class courses', body: 'Iconic courses, right in Southgate.' },
+    { title: 'True ball flight', body: 'Shape, carry, bounce and roll.' },
+    { title: 'Instant feedback', body: 'See it. Fix it. Swing again.' },
   ],
 }
 
 export const giftCards = {
   title: 'Give the gift of golf',
-  body:
-    'Give someone private access to TrackMan technology, world-famous courses, and golf on their own schedule.',
+  body: 'Private studio time, on their schedule.',
 }
 
 // Answers drawn only from what the current site states.

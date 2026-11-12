@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { business } from '../content.js'
+import { useAuth } from '../lib/auth.jsx'
 
 const links = [
   { to: '/memberships', label: 'Memberships' },
   { to: '/waiver', label: 'Waiver' },
   { to: '/#gift-cards', label: 'Gift cards' },
-  { to: '/#faqs', label: 'FAQs' },
+  { to: '/#faqs', label: 'FAQ' },
   { to: '/#contact', label: 'Contact' },
 ]
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const { user } = useAuth()
   const { pathname, hash } = useLocation()
   useEffect(() => {
     setOpen(false)
@@ -22,7 +24,6 @@ export default function Navbar() {
       <a href="#main" className="skip-link">Skip to main content</a>
       <div className="container nav-inner">
         <Link to="/" className="brand">
-          <span className="brand-mark" aria-hidden="true">⛳</span>
           {business.name}
         </Link>
         <button
@@ -41,7 +42,8 @@ export default function Navbar() {
               <NavLink key={l.to} to={l.to}>{l.label}</NavLink>
             ),
           )}
-          <Link to="/book" className="btn btn-primary btn-sm">Book a tee time</Link>
+          <NavLink to={user ? '/portal' : '/login'} className="nav-member">{user ? 'My portal' : 'Member login'}</NavLink>
+          <Link to="/book" className="btn btn-primary btn-sm">Book</Link>
         </nav>
       </div>
     </header>

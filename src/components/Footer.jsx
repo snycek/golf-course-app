@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="container footer-grid">
         <div>
           <div className="brand brand-light">{business.name}</div>
-          <p className="muted-light">Private TrackMan studio in {business.location}. {business.hoursNote}.</p>
+          <p className="muted-light">Private TrackMan studio · {business.location}<br />{business.hoursNote}</p>
         </div>
         <div>
           <h4>Visit</h4>
@@ -26,9 +26,10 @@ export default function Footer() {
           </p>
         </div>
         <div>
-          <h4>Explore</h4>
+          <h4>Studio</h4>
           <ul className="footer-links">
-            <li><Link to="/book">Book a tee time</Link></li>
+            <li><Link to="/book">Book</Link></li>
+            <li><Link to="/login">Member login</Link></li>
             <li><Link to="/memberships">Memberships</Link></li>
             <li><Link to="/waiver">Waiver</Link></li>
             <li><a href={booking.giftCardUrl} target="_blank" rel="noreferrer">Gift cards</a></li>
