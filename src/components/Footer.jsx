@@ -4,42 +4,22 @@ import { business, booking } from '../content.js'
 export default function Footer() {
   const { address } = business
   return (
-    <footer className="footer">
-      <div className="container footer-grid">
-        <div>
+    <footer className="footer" id="contact">
+      <div className="container footer-row">
+        <div className="footer-info">
           <div className="brand brand-light">{business.name}</div>
-          <p className="muted-light">Private TrackMan studio · {business.location}<br />{business.hoursNote}</p>
+          <a href={business.mapUrl} target="_blank" rel="noreferrer">{address.line1}, {address.city}</a>
+          <a href={`tel:${business.phone}`}>{business.phone}</a>
+          <a href={`mailto:${business.email}`}>{business.email}</a>
+          <span className="muted-light">Open 24/7</span>
         </div>
-        <div>
-          <h4>Visit</h4>
-          <p>
-            {address.line1}<br />
-            {address.city}, {address.state} {address.zip}
-          </p>
-          <a href={business.mapUrl} target="_blank" rel="noreferrer">Directions →</a>
-        </div>
-        <div>
-          <h4>Contact</h4>
-          <p>
-            <a href={`tel:${business.phone}`}>{business.phone}</a><br />
-            <a href={`mailto:${business.email}`}>{business.email}</a>
-          </p>
-        </div>
-        <div>
-          <h4>Studio</h4>
-          <ul className="footer-links">
-            <li><Link to="/book">Book</Link></li>
-            <li><Link to="/login">Member login</Link></li>
-            <li><Link to="/memberships">Memberships</Link></li>
-            <li><Link to="/waiver">Waiver</Link></li>
-            <li><a href={booking.giftCardUrl} target="_blank" rel="noreferrer">Gift cards</a></li>
-            <li><Link to="/#faqs">FAQs</Link></li>
-          </ul>
-        </div>
+        <nav className="footer-links">
+          <Link to="/waiver">Waiver</Link>
+          <a href={booking.giftCardUrl} target="_blank" rel="noreferrer">Gift cards</a>
+          <a href={booking.eventsMailto}>Events</a>
+        </nav>
       </div>
-      <div className="container footer-bottom">
-        © {new Date().getFullYear()} {business.name}. All rights reserved.
-      </div>
+      <div className="container footer-bottom">© {new Date().getFullYear()} {business.name}</div>
     </footer>
   )
 }

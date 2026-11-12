@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth, useApi } from '../lib/auth.jsx'
 import { fmtDate, fmtHours, todayYmd } from '../lib/format.js'
+import SideNav from '../components/SideNav.jsx'
 
 const blankMember = { email: '', name: '', phone: '', plan: 'silver', status: 'active', billingDay: new Date().getDate(), notes: '' }
 
@@ -225,18 +226,20 @@ export default function Admin() {
   if (me.data && !me.data.isAdmin) return <section className="section container"><p className="error">Admins only.</p></section>
 
   return (
-    <div className="portal">
-      <div className="portal-bar">
-        <div className="container portal-bar-inner">
-          <nav className="tabs">
-            <button className={tab === 'members' ? 'active' : ''} onClick={() => setTab('members')}>Members</button>
-            <button className={tab === 'waivers' ? 'active' : ''} onClick={() => setTab('waivers')}>Waivers</button>
-          </nav>
+    <div className="container shell">
+      <SideNav
+        header={<div className="side-head"><strong>Admin</strong><span>{user.email}</span></div>}
+        items={[
+          { key: 'members', label: 'Members', icon: 'members', onClick: () => setTab('members'), active: tab === 'members' },
+          { key: 'waivers', label: 'Waivers', icon: 'waivers', onClick: () => setTab('waivers'), active: tab === 'waivers' },
+          { key: 'portal', label: 'My portal', icon: 'overview', to: '/portal', end: true },
+        ]}
+      />
+      <div className="shell-main">
+        <div className="page-enter" key={tab}>
+          <header className="portal-head"><h1>{tab === 'members' ? 'Members' : 'Waivers'}</h1></header>
+          {me.data && (tab === 'members' ? <Members /> : <Waivers />)}
         </div>
-      </div>
-      <div className="container portal-body">
-        <header className="portal-head"><h1>Admin</h1></header>
-        {me.data && (tab === 'members' ? <Members /> : <Waivers />)}
       </div>
     </div>
   )

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import PageHeader from '../components/PageHeader.jsx'
 import { waiverIntro } from '../content.js'
 import { waiverTitle, waiverAddress, waiverSections, WAIVER_VERSION } from '../waiverText.js'
 
@@ -47,20 +46,19 @@ export default function Waiver() {
       if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.')
       setStatus({ state: 'done', message: '' })
       setForm(empty)
-      window.scrollTo({ top: document.getElementById('waiver-form').offsetTop - 80, behavior: 'smooth' })
     } catch (err) {
       setStatus({ state: 'error', message: err.message })
     }
   }
 
   return (
-    <>
-      <PageHeader eyebrow="Safety first" title={waiverIntro.title}>{waiverIntro.lead}</PageHeader>
-      <section className="section">
-        <div className="container narrow">
-          <a href="#waiver-form" className="btn btn-primary">Skip to the form</a>
-
-          <article className="waiver-doc">
+    <section className="page fill">
+      <div className="container waiver-layout">
+        <div className="waiver-left">
+          <p className="eyebrow">Waiver</p>
+          <h1>{waiverIntro.title}</h1>
+          <p className="muted">Required for every golfer. Valid 12 months.</p>
+          <article className="waiver-doc scroll-panel">
             <h2>{waiverTitle}</h2>
             <p className="muted">{waiverAddress.join(' · ')}</p>
             {waiverSections.map((s) => (
@@ -70,64 +68,64 @@ export default function Waiver() {
               </section>
             ))}
           </article>
-
-          <div id="waiver-form" className="card waiver-form">
-            {status.state === 'done' ? (
-              <div className="success" role="status">
-                <h3>Thanks — your waiver is signed.</h3>
-                <p>It’s valid for your reservation and visits in the next twelve months. Each guest in your group needs to sign their own.</p>
-                <button className="btn btn-outline" onClick={() => setStatus({ state: 'idle', message: '' })}>
-                  Sign for another guest
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={submit}>
-                <h3>Sign the waiver</h3>
-                <div className="form-row">
-                  <label>First name*<input required value={form.firstName} onChange={set('firstName')} autoComplete="given-name" /></label>
-                  <label>Last name*<input required value={form.lastName} onChange={set('lastName')} autoComplete="family-name" /></label>
-                </div>
-                <fieldset className="form-row form-row-3">
-                  <legend>Birthday*</legend>
-                  <label className="sr-label">Month
-                    <select required value={form.month} onChange={set('month')}>
-                      <option value="">Month</option>
-                      {MONTHS.map((m, i) => <option key={m} value={i + 1}>{m}</option>)}
-                    </select>
-                  </label>
-                  <label className="sr-label">Day
-                    <select required value={form.day} onChange={set('day')}>
-                      <option value="">Day</option>
-                      {DAYS.map((d) => <option key={d} value={d}>{d}</option>)}
-                    </select>
-                  </label>
-                  <label className="sr-label">Year
-                    <select required value={form.year} onChange={set('year')}>
-                      <option value="">Year</option>
-                      {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
-                    </select>
-                  </label>
-                </fieldset>
-                <div className="form-row">
-                  <label>Phone*<input required type="tel" value={form.phone} onChange={set('phone')} autoComplete="tel" /></label>
-                  <label>Email*<input required type="email" value={form.email} onChange={set('email')} autoComplete="email" /></label>
-                </div>
-                <label>Minor information: full name &amp; date of birth
-                  <textarea rows={3} value={form.minors} onChange={set('minors')} placeholder="Optional — one minor per line" />
-                </label>
-                <label className="check">
-                  <input type="checkbox" required checked={form.agreed} onChange={set('agreed')} />
-                  <span>By checking this box, you are agreeing to the release of liability waiver above.*</span>
-                </label>
-                {status.state === 'error' && <p className="error" role="alert">{status.message}</p>}
-                <button className="btn btn-primary btn-block" disabled={status.state === 'sending'}>
-                  {status.state === 'sending' ? 'Submitting…' : 'Submit'}
-                </button>
-              </form>
-            )}
-          </div>
         </div>
-      </section>
-    </>
+
+        <div id="waiver-form" className="panel waiver-form">
+          {status.state === 'done' ? (
+            <div className="success" role="status">
+              <h3>Signed. Thank you.</h3>
+              <p className="muted">Valid for 12 months. Each guest signs their own.</p>
+              <button className="btn btn-outline" onClick={() => setStatus({ state: 'idle', message: '' })}>
+                Sign for another guest
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={submit}>
+              <h3>Sign</h3>
+              <div className="form-row">
+                <label>First name*<input required value={form.firstName} onChange={set('firstName')} autoComplete="given-name" /></label>
+                <label>Last name*<input required value={form.lastName} onChange={set('lastName')} autoComplete="family-name" /></label>
+              </div>
+              <fieldset className="form-row form-row-3">
+                <legend>Birthday*</legend>
+                <label className="sr-label">Month
+                  <select required value={form.month} onChange={set('month')}>
+                    <option value="">Month</option>
+                    {MONTHS.map((m, i) => <option key={m} value={i + 1}>{m}</option>)}
+                  </select>
+                </label>
+                <label className="sr-label">Day
+                  <select required value={form.day} onChange={set('day')}>
+                    <option value="">Day</option>
+                    {DAYS.map((d) => <option key={d} value={d}>{d}</option>)}
+                  </select>
+                </label>
+                <label className="sr-label">Year
+                  <select required value={form.year} onChange={set('year')}>
+                    <option value="">Year</option>
+                    {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
+                  </select>
+                </label>
+              </fieldset>
+              <div className="form-row">
+                <label>Phone*<input required type="tel" value={form.phone} onChange={set('phone')} autoComplete="tel" /></label>
+                <label>Email*<input required type="email" value={form.email} onChange={set('email')} autoComplete="email" /></label>
+              </div>
+              <label>Minors (name &amp; date of birth)
+                <textarea rows={2} value={form.minors} onChange={set('minors')} placeholder="Optional — one per line" />
+              </label>
+              <label className="check">
+                <input type="checkbox" required checked={form.agreed} onChange={set('agreed')} />
+                <span>I agree to the release of liability waiver.*</span>
+              </label>
+              {status.state === 'error' && <p className="error" role="alert">{status.message}</p>}
+              <button className="btn btn-primary btn-block" disabled={status.state === 'sending'}>
+                {status.state === 'sending' ? 'Submitting…' : 'Submit'}
+              </button>
+            </form>
+          )}
+        </div>
+      </div>
+    </section>
   )
 }

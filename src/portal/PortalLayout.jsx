@@ -1,5 +1,6 @@
-import { NavLink, Navigate, Outlet, useLocation } from 'react-router-dom'
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAuth, useApi } from '../lib/auth.jsx'
+import SideNav from '../components/SideNav.jsx'
 
 export default function PortalLayout() {
   const { user, signOut } = useAuth()
@@ -9,26 +10,35 @@ export default function PortalLayout() {
   if (user === undefined) return <div className="portal-loading" />
   if (!user) return <Navigate to="/login" state={{ from: location.pathname }} replace />
 
+  const m = me.data?.member
+  const items = [
+    { key: 'overview', label: 'Overview', icon: 'overview', to: '/portal', end: true },
+    { key: 'stats', label: 'Stats', icon: 'stats', to: '/portal/stats' },
+    { key: 'account', label: 'Account', icon: 'account', to: '/portal/account' },
+    ...(me.data?.isAdmin ? [{ key: 'admin', label: 'Admin', icon: 'admin', to: '/admin' }] : []),
+  ]
+
   return (
-    <div className="portal">
-      <div className="portal-bar">
-        <div className="container portal-bar-inner">
-          <nav className="tabs">
-            <NavLink to="/portal" end>Overview</NavLink>
-            <NavLink to="/portal/stats">Stats</NavLink>
-            <NavLink to="/portal/account">Account</NavLink>
-            {me.data?.isAdmin && <NavLink to="/admin">Admin</NavLink>}
-          </nav>
-          <button className="linkish" onClick={signOut}>Sign out</button>
-        </div>
-      </div>
-      <div className="container portal-body">
+    <div className="container shell">
+      <SideNav
+        items={items}
+        header={
+          <div className="side-head">
+            <strong>{m?.name || user.email}</strong>
+            {m && <span>{me.data?.hours?.plan.name || m.plan} member</span>}
+          </div>
+        }
+        footer={<button className="side-signout" onClick={signOut}>Sign out</button>}
+      />
+      <div className="shell-main">
         {me.loading && !me.data ? (
           <div className="portal-loading" />
         ) : me.error ? (
           <p className="error">{me.error.message}</p>
         ) : (
-          <Outlet context={me} />
+          <div className="page-enter" key={location.pathname}>
+            <Outlet context={me} />
+          </div>
         )}
       </div>
     </div>

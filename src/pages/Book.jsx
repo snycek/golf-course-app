@@ -18,19 +18,14 @@ export default function Book() {
   }
 
   return (
-    <section className="book">
-      <div className="container">
-        <header className="book-head">
-          <p className="eyebrow">Book</p>
-          <h1>Reserve the studio</h1>
-        </header>
-
+    <section className="book fill">
+      <div className="container book-inner">
         <GolfProgress steps={STEPS} current={step} onStep={go} />
 
-        <div className="book-stage" key={step}>
+        <div className={`book-stage ${step === 2 ? 'book-stage-wide' : ''}`} key={step}>
           {step === 0 && (
             <>
-              <h2>How are you playing?</h2>
+              <h1>How are you playing?</h1>
               <div className="choice-grid">
                 <button className={`choice ${kind === 'hourly' ? 'on' : ''}`} onClick={() => setKind('hourly')}>
                   <strong>Hourly</strong>
@@ -56,7 +51,7 @@ export default function Book() {
 
           {step === 1 && (
             <>
-              <h2>Waivers</h2>
+              <h1>Waivers</h1>
               <p className="muted">
                 {golfers === 1 ? 'You need a signed waiver' : golfers === 2 ? 'Both golfers need a signed waiver' : `All ${golfers} golfers need a signed waiver`} before entering. Each lasts 12 months.
               </p>
@@ -74,8 +69,10 @@ export default function Book() {
 
           {step === 2 && (
             <>
-              <h2>Pick your time</h2>
-              {kind === 'member' && <p className="muted">Sign in to your account in the calendar to apply your hours.</p>}
+              <div className="stage-head">
+                <h1>Pick your time</h1>
+                {kind === 'member' && <p className="muted">Sign in inside the calendar to use your hours.</p>}
+              </div>
               <BookingWidget />
               <div className="book-nav">
                 <button className="btn btn-text" onClick={() => go(1)}>Back</button>
@@ -86,7 +83,7 @@ export default function Book() {
 
           {step === 3 && (
             <div className="finish">
-              <h2>You’re on the tee sheet.</h2>
+              <h1>You’re on the tee sheet.</h1>
               <ol className="timeline">
                 <li><strong>Check your email</strong><span>Door and bay PINs arrive after booking.</span></li>
                 <li><strong>Arrive</strong><span>Codes activate 5 minutes before your time.</span></li>

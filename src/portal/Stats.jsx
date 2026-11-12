@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import { useApi } from '../lib/auth.jsx'
 import HBarChart from '../components/charts/HBarChart.jsx'
@@ -18,6 +19,7 @@ function Tile({ label, value, sub }) {
 export default function Stats() {
   const { data: me } = useOutletContext()
   const stats = useApi('/api/me/stats')
+  const [view, setView] = useState('carry')
   if (!me.member) return <NoMembership email={me.email} />
   if (stats.loading && !stats.data) return <div className="portal-loading" />
   if (stats.error) return <p className="error">{stats.error.message}</p>
@@ -39,15 +41,38 @@ export default function Stats() {
         <Tile label="Best round" value={s.bestScore} sub={s.avgScore ? `avg ${s.avgScore}` : 'no rounds yet'} />
       </div>
 
-      <div className="dash-grid">
-        <article className="panel">
-          <h2>Driver carry</h2>
-          <LineChart
-            ariaLabel="Driver carry distance per session"
-            data={s.driverTrend.map((p) => ({ x: p.date, y: p.carry }))}
-            formatX={(d) => fmtDate(d)}
-            formatY={(v) => `${Math.round(v)} yd`}
-          />
+      <div className="stats-grid">
+        <article className="panel chart-panel">
+          <div className="panel-head">
+            <h2>{view === 'carry' ? 'Driver carry' : 'Scores'}</h2>
+            {s.scoreTrend.length > 1 && (
+              <div className="seg" role="tablist">
+                <button role="tab" aria-selected={view === 'carry'} className={view === 'carry' ? 'on' : ''} onClick={() => setView('carry')}>Driver</button>
+                <button role="tab" aria-selected={view === 'scores'} className={view === 'scores' ? 'on' : ''} onClick={() => setView('scores')}>Scores</button>
+              </div>
+            )}
+          </div>
+          <p className="panel-sub">{view === 'carry' ? 'Per session' : 'Lower is better'}</p>
+          <div className="page-enter" key={view}>
+            {view === 'carry' ? (
+              <LineChart
+                ariaLabel="Driver carry distance per session"
+                data={s.driverTrend.map((p) => ({ x: p.date, y: p.carry }))}
+                formatX={(d) => fmtDate(d)}
+                formatY={(v) => `${Math.round(v)} yd`}
+                height={300}
+              />
+            ) : (
+              <LineChart
+                ariaLabel="Round scores over time"
+                data={s.scoreTrend.map((p) => ({ x: p.date, y: p.score, note: p.course }))}
+                formatX={(d) => fmtDate(d)}
+                formatY={(v) => String(Math.round(v))}
+                height={300}
+                invert
+              />
+            )}
+          </div>
         </article>
         <article className="panel">
           <h2>Carry by club</h2>
@@ -59,38 +84,6 @@ export default function Stats() {
             value={(d) => d.carry}
             unit=" yd"
           />
-        </article>
-        {s.scoreTrend.length > 1 && (
-          <article className="panel">
-            <h2>Scores</h2>
-            <p className="panel-sub">Lower is better</p>
-            <LineChart
-              ariaLabel="Round scores over time"
-              data={s.scoreTrend.map((p) => ({ x: p.date, y: p.score, note: p.course }))}
-              formatX={(d) => fmtDate(d)}
-              formatY={(v) => String(Math.round(v))}
-              invert
-            />
-          </article>
-        )}
-        <article className="panel">
-          <h2>Recent sessions</h2>
-          <div className="table-wrap flat">
-            <table className="table">
-              <thead><tr><th>Date</th><th>Type</th><th>Shots</th><th>Driver</th><th>Score</th></tr></thead>
-              <tbody>
-                {s.recentSessions.map((r) => (
-                  <tr key={r.id}>
-                    <td>{fmtDate(r.date)}</td>
-                    <td>{r.kind === 'round' ? r.course : 'Practice'}</td>
-                    <td>{r.shots}</td>
-                    <td>{Math.round(r.carry.Driver)} yd</td>
-                    <td>{r.score ?? '—'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </article>
       </div>
     </>

@@ -26,6 +26,10 @@ export const booking = {
     'mailto:teeinitupsimgolf@gmail.com?subject=Inquiry%20about%20a%20Private%20Event',
 }
 
+// Photos from the current site, faded behind the home page. Drop the files in
+// public/images/ and list them here (e.g. '/images/studio-1.jpg').
+export const heroImages = []
+
 export const hero = {
   eyebrow: 'Southgate, Michigan',
   title: 'Your private',
@@ -34,7 +38,7 @@ export const hero = {
   priceNote: 'From $40/hr · up to 6 golfers',
 }
 
-export const highlights = ['Private studio', 'TrackMan iO', 'Open 24/7', 'Up to 6 golfers']
+export const highlights = ['Private studio', 'Open 24/7', 'Up to 6 golfers']
 
 export const howItWorks = {
   title: 'Golf on your schedule',
@@ -59,11 +63,20 @@ export const options = {
       cta: 'Plan an event',
       href: 'mailto:teeinitupsimgolf@gmail.com?subject=Inquiry%20about%20a%20Private%20Event',
     },
+    {
+      key: 'gift',
+      title: 'Gift cards',
+      body: 'Studio time, on their schedule.',
+      price: 'Any amount',
+      cta: 'Buy a gift card',
+      href: 'https://yourgolfbooking.com/venues/tee-in-it-up-southgate/topups',
+      external: true,
+    },
   ],
 }
 
 export const tech = {
-  title: 'Powered by TrackMan iO',
+  title: 'TrackMan iO',
   items: [
     { title: 'Tour-level accuracy', body: 'Ball and club data on every shot.' },
     { title: 'World-class courses', body: 'Iconic courses, right in Southgate.' },

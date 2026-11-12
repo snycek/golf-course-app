@@ -2,7 +2,6 @@ import { Link, useOutletContext } from 'react-router-dom'
 import HoursRing from '../components/charts/HoursRing.jsx'
 import NoMembership from './NoMembership.jsx'
 import { useApi } from '../lib/auth.jsx'
-import { booking } from '../content.js'
 import { fmtDate, fmtLongDate, fmtHours } from '../lib/format.js'
 
 function WaiverStatus({ waiver }) {
@@ -26,14 +25,13 @@ export default function Overview() {
           <h1>{first ? `Hi, ${first}` : 'Welcome'}</h1>
           <WaiverStatus waiver={me.waiver} />
         </div>
-        <a href={booking.url} target="_blank" rel="noreferrer" className="btn btn-primary">Book a tee time</a>
       </header>
 
       {m.status === 'paused' && <p className="notice">Your membership is paused.</p>}
 
       <div className="dash-grid">
         <article className="panel plan-panel">
-          <span className="plan-chip">{h?.plan.name || m.plan} member</span>
+          <span className="plan-chip">This cycle</span>
           {h ? (
             <>
               <HoursRing used={h.usedHours} total={h.includedHours} />
@@ -49,10 +47,7 @@ export default function Overview() {
         </article>
 
         <article className="panel">
-          <div className="panel-head">
-            <h2>Recent visits</h2>
-            <Link to="/portal/stats" className="link-arrow">Stats →</Link>
-          </div>
+          <h2>Recent visits</h2>
           {usage.data?.usage?.length ? (
             <ul className="visits">
               {usage.data.usage.slice(0, 6).map((u) => (

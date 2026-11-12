@@ -5,10 +5,7 @@ import { useAuth } from '../lib/auth.jsx'
 
 const links = [
   { to: '/memberships', label: 'Memberships' },
-  { to: '/waiver', label: 'Waiver' },
-  { to: '/#gift-cards', label: 'Gift cards' },
-  { to: '/#faqs', label: 'FAQ' },
-  { to: '/#contact', label: 'Contact' },
+  { to: '/faq', label: 'FAQ' },
 ]
 
 export default function Navbar() {

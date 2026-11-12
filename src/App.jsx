@@ -8,6 +8,7 @@ import Book from './pages/Book.jsx'
 import Memberships from './pages/Memberships.jsx'
 import Waiver from './pages/Waiver.jsx'
 import Admin from './pages/Admin.jsx'
+import Faq from './pages/Faq.jsx'
 import NotFound from './pages/NotFound.jsx'
 import Login from './portal/Login.jsx'
 import PortalLayout from './portal/PortalLayout.jsx'
@@ -18,6 +19,7 @@ import Account from './portal/Account.jsx'
 export default function App() {
   return (
     <AuthProvider>
+      <div className="app">
       <ScrollManager />
       <Navbar />
       <main id="main">
@@ -26,6 +28,7 @@ export default function App() {
           <Route path="/book" element={<Book />} />
           <Route path="/memberships" element={<Memberships />} />
           <Route path="/waiver" element={<Waiver />} />
+          <Route path="/faq" element={<Faq />} />
           <Route path="/login" element={<Login />} />
           <Route path="/portal" element={<PortalLayout />}>
             <Route index element={<Overview />} />
@@ -40,6 +43,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      </div>
     </AuthProvider>
   )
 }
