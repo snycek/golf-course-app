@@ -717,11 +717,10 @@ label.check input { width: 1.2rem; height: 1.2rem; margin-top: 0.2rem; flex-shri
 .icon-btn:hover { background: #f6e3df; color: var(--danger); }
 .books-table td { vertical-align: middle; }
 
-/* Swordfish Consulting mark — faint, top right, behind content */
+/* Swordfish Consulting mark — just the fish, faint, bottom left, behind content */
 .sf-mark {
-  position: fixed; z-index: 2; pointer-events: none; top: 80px; right: 18px;
-  width: 92px; height: auto; opacity: 0.16; filter: grayscale(0.4);
-  mix-blend-mode: multiply;
+  position: fixed; z-index: 0; pointer-events: none; left: 14px; bottom: 64px;
+  width: 78px; height: auto; opacity: 0.07; filter: grayscale(0.85);
 }
-@media (max-width: 760px) { .sf-mark { width: 60px; top: 76px; right: 8px; opacity: 0.12; } }
-.app:has(.home) .sf-mark { mix-blend-mode: screen; filter: grayscale(1) invert(1); opacity: 0.14; }
+.app:has(.home) .sf-mark { z-index: 2; filter: grayscale(1) brightness(2.2); opacity: 0.07; }
+@media (max-width: 1023px), (max-height: 639px) { .sf-mark { position: absolute; bottom: auto; top: 100vh; display: none; } }

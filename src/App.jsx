@@ -22,7 +22,7 @@ export default function App() {
     <AuthProvider>
       <div className="app">
       <Crest className="watermark" />
-      <img src="/swordfish-logo.png" alt="" className="sf-mark" aria-hidden="true" />
+      <img src="/swordfish-mark.png" alt="" className="sf-mark" aria-hidden="true" />
       <ScrollManager />
       <Navbar />
       <main id="main">
