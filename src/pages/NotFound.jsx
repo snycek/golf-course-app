@@ -5,7 +5,7 @@ export default function NotFound() {
     <section className="section">
       <div className="container narrow center">
         <h1>Out of bounds</h1>
-        <p>That page doesn't exist.</p>
+        <p>That page doesn’t exist.</p>
         <Link to="/" className="btn btn-primary">Back home</Link>
       </div>
     </section>
