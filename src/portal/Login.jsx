@@ -40,8 +40,7 @@ export default function Login() {
   return (
     <section className="auth">
       <div className="auth-card">
-        <p className="eyebrow">Members</p>
-        <h1>{tab === 'in' ? 'Welcome back' : 'Create account'}</h1>
+        <h1>{tab === 'in' ? 'Member sign in' : 'Create account'}</h1>
         {mode === 'none' ? (
           <p className="muted">Member login is coming soon.</p>
         ) : (

@@ -1,51 +1,62 @@
 import { Link } from 'react-router-dom'
 import HeroSlides from '../components/HeroSlides.jsx'
-import { hero, heroImages, highlights, options, tech } from '../content.js'
+import Crest from '../components/Crest.jsx'
+import { heroImages, booking, memberships } from '../content.js'
+
+const RATES = [
+  { name: 'Hourly', note: 'Whole studio, up to 6', price: 'from $40/hr', to: '/book' },
+  { name: 'Silver membership', note: '3 hrs a month', price: `${memberships.tiers[0].price}/mo`, to: '/memberships' },
+  { name: 'Gold membership', note: '6 hrs a month', price: `${memberships.tiers[1].price}/mo`, to: '/memberships' },
+  { name: 'Private events', note: 'Birthdays, outings, golf nights', price: 'Inquire', href: booking.eventsMailto },
+  { name: 'Gift cards', note: 'Any amount', price: 'Buy', href: booking.giftCardUrl, external: true },
+]
 
 export default function Home() {
   return (
     <section className="home fill">
       <HeroSlides images={heroImages} />
+      <Crest className="home-crest" />
       <div className="container home-grid">
         <div className="home-hero">
-          <p className="eyebrow">{hero.eyebrow}</p>
-          <h1>{hero.title} <em>{hero.titleAccent}</em></h1>
-          <p className="lead">{hero.lead}</p>
+          <h1>Your own private TrackMan studio.</h1>
+          <p className="lead">Open 24/7 in Southgate. The whole studio, just your group.</p>
           <div className="hero-cta">
             <Link to="/book" className="btn btn-primary">Book a tee time</Link>
-            <Link to="/memberships" className="btn btn-ghost">Memberships</Link>
+            <Link to="/memberships" className="text-link">See memberships</Link>
           </div>
-          <ul className="highlights">
-            {highlights.map((h) => <li key={h}>{h}</li>)}
+        </div>
+
+        <div className="rate-card">
+          <h2>Ways to play</h2>
+          <ul>
+            {RATES.map((r) => {
+              const inner = (
+                <>
+                  <span className="rate-name">{r.name}<small>{r.note}</small></span>
+                  <span className="rate-dots" aria-hidden="true" />
+                  <span className="rate-price">{r.price}</span>
+                </>
+              )
+              return (
+                <li key={r.name}>
+                  {r.to ? (
+                    <Link to={r.to}>{inner}</Link>
+                  ) : (
+                    <a href={r.href} {...(r.external ? { target: '_blank', rel: 'noreferrer' } : {})}>{inner}</a>
+                  )}
+                </li>
+              )
+            })}
           </ul>
         </div>
-        <div className="option-grid">
-          {options.items.map((o) => {
-            const body = (
-              <>
-                <span className="option-price">{o.price}</span>
-                <h3>{o.title}</h3>
-                <p>{o.body}</p>
-                <span className="option-cta">{o.cta} →</span>
-              </>
-            )
-            return o.to ? (
-              <Link key={o.key} to={o.to} className="option">{body}</Link>
-            ) : (
-              <a key={o.key} href={o.href} className="option" {...(o.external ? { target: '_blank', rel: 'noreferrer' } : {})}>{body}</a>
-            )
-          })}
-        </div>
       </div>
-      <div className="tech-strip">
-        <div className="container tech-grid">
-          <p className="eyebrow">{tech.title}</p>
-          {tech.items.map((t) => (
-            <div key={t.title} className="tech-item">
-              <h3>{t.title}</h3>
-              <p>{t.body}</p>
-            </div>
-          ))}
+      <div className="tech-line">
+        <div className="container">
+          <span>TrackMan iO</span>
+          <span>Tour-level ball &amp; club data</span>
+          <span>World-class courses</span>
+          <span>True ball flight</span>
+          <span>No front desk, no waiting</span>
         </div>
       </div>
     </section>

@@ -6,9 +6,8 @@ export default function Memberships() {
     <section className="page fill">
       <div className="container plans-layout">
         <div className="plans-intro">
-          <p className="eyebrow">Memberships</p>
-          <h1>Make golf a habit.</h1>
-          <p className="muted">Monthly studio hours, member pricing, room for your group.</p>
+          <h1>Memberships</h1>
+          <p className="muted">Monthly studio hours and member pricing. Bring up to five guests.</p>
           <p className="muted small">
             Not ready? <Link to="/book">Book an hour</Link> — from $40.
           </p>
@@ -19,7 +18,7 @@ export default function Memberships() {
         </div>
         {m.tiers.map((t) => (
           <article key={t.name} className={`plan ${t.badge ? 'plan-featured' : ''}`}>
-            {t.badge && <span className="badge">{t.badge}</span>}
+            {t.badge && <span className="badge">Best value</span>}
             <h3>{t.name}</h3>
             <p className="price">{t.price}<span>/mo</span></p>
             <ul className="checks">{t.includes.map((i) => <li key={i}>{i}</li>)}</ul>

@@ -31,7 +31,7 @@ export default function Overview() {
 
       <div className="dash-grid">
         <article className="panel plan-panel">
-          <span className="plan-chip">This cycle</span>
+          <span className="plan-chip">This billing cycle</span>
           {h ? (
             <>
               <HoursRing used={h.usedHours} total={h.includedHours} />

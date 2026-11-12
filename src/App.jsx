@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './lib/auth.jsx'
 import Navbar from './components/Navbar.jsx'
+import Crest from './components/Crest.jsx'
 import Footer from './components/Footer.jsx'
 import ScrollManager from './components/ScrollManager.jsx'
 import Home from './pages/Home.jsx'
@@ -20,6 +21,7 @@ export default function App() {
   return (
     <AuthProvider>
       <div className="app">
+      <Crest className="watermark" />
       <ScrollManager />
       <Navbar />
       <main id="main">

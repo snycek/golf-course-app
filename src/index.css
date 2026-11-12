@@ -607,3 +607,66 @@ label.check input { width: 1.2rem; height: 1.2rem; margin-top: 0.2rem; flex-shri
 .seg button.on { background: var(--green-900); color: var(--ivory); }
 .footer-info { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; align-items: center; }
 .footer-info a { white-space: nowrap; }
+
+/* =====================================================================
+   v4 — less template-y: crest watermark, rate card, squarer controls
+   ===================================================================== */
+/* Buttons: squarer, no sheen */
+.btn { border-radius: 8px; letter-spacing: 0; }
+.btn::after { display: none; }
+.btn-sm { border-radius: 7px; }
+.text-link { color: inherit; font-weight: 500; text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; text-decoration-color: rgba(247, 244, 238, 0.4); }
+.text-link:hover { text-decoration-color: var(--brass-soft); }
+
+/* Brand mark */
+.brand { display: inline-flex; align-items: center; gap: 0.6rem; }
+.brand-crest { width: 34px; height: 34px; color: var(--green-900); }
+
+/* Faint crest watermark behind every page */
+.watermark {
+  position: fixed; z-index: 0; pointer-events: none;
+  width: min(70vh, 640px); height: min(70vh, 640px);
+  right: -8vh; bottom: -14vh; color: var(--green-900); opacity: 0.045;
+}
+.app > header, .app > main, .app > footer { position: relative; z-index: 1; }
+.home-crest {
+  position: absolute; z-index: 0; pointer-events: none; color: var(--ivory); opacity: 0.06;
+  width: min(80vh, 720px); height: min(80vh, 720px); right: -10vh; top: 50%; transform: translateY(-50%);
+}
+
+/* Home: flatter, no glow */
+.home { background: var(--green-950); }
+.home-hero h1 { max-width: 13ch; font-weight: 600; }
+.home .hero-cta { align-items: center; gap: 1.5rem; }
+.home .btn-primary { background: var(--brass); color: var(--green-950); }
+
+/* Clubhouse rate card */
+.rate-card { background: rgba(10, 31, 24, 0.55); border: 1px solid rgba(247, 244, 238, 0.12); border-radius: 6px; padding: 1.75rem 1.75rem 1rem; backdrop-filter: blur(3px); }
+.rate-card h2 { font-size: 1.5rem; margin: 0 0 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(247, 244, 238, 0.15); }
+.rate-card ul { list-style: none; margin: 0; padding: 0; }
+.rate-card a { display: flex; align-items: baseline; gap: 0.6rem; padding: 0.85rem 0; color: var(--ivory); text-decoration: none; border-bottom: 1px solid rgba(247, 244, 238, 0.07); transition: color 0.2s, padding 0.3s; }
+.rate-card li:last-child a { border-bottom: 0; }
+.rate-card a:hover { color: var(--brass-soft); padding-left: 0.35rem; }
+.rate-name { font-family: var(--serif); font-size: 1.15rem; display: flex; flex-direction: column; }
+.rate-name small { font-family: var(--sans); font-size: 0.8rem; color: rgba(247, 244, 238, 0.5); margin-top: 0.1rem; }
+.rate-dots { flex: 1; border-bottom: 1px dotted rgba(247, 244, 238, 0.3); transform: translateY(-0.35rem); min-width: 1rem; }
+.rate-price { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+
+.tech-line { position: relative; z-index: 1; border-top: 1px solid rgba(247, 244, 238, 0.1); padding: 1rem 0; font-size: 0.85rem; color: rgba(247, 244, 238, 0.55); }
+.tech-line .container { display: flex; flex-wrap: wrap; gap: 0.4rem 0; }
+.tech-line span:not(:last-child)::after { content: ''; display: inline-block; width: 1px; height: 0.9em; background: rgba(247, 244, 238, 0.2); margin: 0 1.1rem; vertical-align: -0.1em; }
+.tech-line span:first-child { color: var(--brass-soft); font-weight: 600; }
+
+/* Calmer labels elsewhere */
+.badge { letter-spacing: 0.04em; text-transform: none; font-size: 0.8rem; }
+.side-head span, .plan-chip, .tile-label, .facts dt, .table th, .sub-q { letter-spacing: 0.02em; text-transform: none; font-size: 0.8rem; }
+.gp-steps button { letter-spacing: 0.04em; text-transform: none; font-size: 0.88rem; }
+.option-price { letter-spacing: 0.02em; text-transform: none; }
+.plan { border-radius: 8px; }
+.panel, .card, .tiles, .table-wrap, .widget, .waiver-doc, .auth-card, .choice { border-radius: 8px; }
+
+@media (min-width: 1024px) and (min-height: 640px) {
+  .home h1 { font-size: min(4.2rem, 4.8vw, 8vh); }
+  .rate-card a { padding: min(0.85rem, 1.5vh) 0; }
+  .tech-line { padding: 1.6vh 0; }
+}

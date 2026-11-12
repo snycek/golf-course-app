@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { business } from '../content.js'
 import { useAuth } from '../lib/auth.jsx'
+import Crest from './Crest.jsx'
 
 const links = [
   { to: '/memberships', label: 'Memberships' },
@@ -21,6 +22,7 @@ export default function Navbar() {
       <a href="#main" className="skip-link">Skip to main content</a>
       <div className="container nav-inner">
         <Link to="/" className="brand">
+          <Crest className="brand-crest" />
           {business.name}
         </Link>
         <button

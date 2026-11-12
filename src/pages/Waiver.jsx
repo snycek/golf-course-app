@@ -55,8 +55,7 @@ export default function Waiver() {
     <section className="page fill">
       <div className="container waiver-layout">
         <div className="waiver-left">
-          <p className="eyebrow">Waiver</p>
-          <h1>{waiverIntro.title}</h1>
+          <h1>Waiver</h1>
           <p className="muted">Required for every golfer. Valid 12 months.</p>
           <article className="waiver-doc scroll-panel">
             <h2>{waiverTitle}</h2>
